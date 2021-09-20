@@ -1,17 +1,21 @@
 require("dotenv").config();
 import redisClient from "./helpers/initRedis";
 import { ApolloServer } from "apollo-server";
-
 import mongoose from "mongoose";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { loggerDirective, upperCaseDirective } from "./resolvers/directives";
+let schema = makeExecutableSchema({ typeDefs, resolvers });
 
+schema = loggerDirective(schema, "logger");
+schema = upperCaseDirective(schema, "upperCase");
 const PORT = process.env.PORT || 8000;
 redisClient.SET("name", "Rahul");
 const server = new ApolloServer({
   cors: { origin: "*" },
-  resolvers,
-  typeDefs,
+  schema,
+
   formatError: (err) => {
     console.error("Error!!");
     console.error(err.message);

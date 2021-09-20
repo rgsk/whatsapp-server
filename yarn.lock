@@ -802,6 +802,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+directive@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/directive/-/directive-0.1.0.tgz#88e1d6fad05988d5c644a2b0c0f47858fa7b995b"
+  integrity sha1-iOHW+tBZiNXGRKKwwPR4WPp7mVs=
+
 dot-prop@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-5.3.0.tgz#90ccce708cd9cd82cc4dc8c3ddd9abdd55b20e88"
