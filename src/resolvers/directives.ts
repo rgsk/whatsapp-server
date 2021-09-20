@@ -15,11 +15,10 @@ export const loggerDirective = (
       if (loggerDirective) {
         console.log(fieldConfig);
         const defaultResolver = fieldConfig.resolve || defaultFieldResolver;
-        const resolver = (...args: any) => {
+        fieldConfig.resolve = (...args: any) => {
           console.log(fieldConfig);
           return defaultResolver.call(this, ...args);
         };
-        fieldConfig.resolve = resolver;
         return fieldConfig;
       }
     },
@@ -39,12 +38,11 @@ export const upperCaseDirective = (
       )?.[0];
       if (upperCaseDirective) {
         const defaultResolver = fieldConfig.resolve || defaultFieldResolver;
-        const resolver = async (...args: any) => {
+        fieldConfig.resolve = async (...args: any) => {
           const answer = await defaultResolver.call(this, ...args);
           console.log(answer);
           return answer.toUpperCase();
         };
-        fieldConfig.resolve = resolver;
         return fieldConfig;
       }
     },
