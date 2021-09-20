@@ -1,12 +1,13 @@
-import { pubsub } from "./index";
-import { PubSub, withFilter } from "graphql-subscriptions";
+import { withFilter } from "graphql-subscriptions";
+import { pubsub } from "./../helpers/initRedis";
 
 export const Subscription = {
   message: {
     subscribe: withFilter(
       () => pubsub.asyncIterator("MessageRecieved"),
-      () => {
-        return true;
+      (data: any, params: any) => {
+        console.log({ data, params }, data.message.roomId === params.roomId);
+        return data.message.roomId === params.roomId;
       }
     ),
   },

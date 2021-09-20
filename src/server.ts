@@ -1,3 +1,4 @@
+import { SubscriptionServer } from "subscriptions-transport-ws";
 require("dotenv").config();
 import redisClient from "./helpers/initRedis";
 
@@ -10,6 +11,7 @@ import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loggerDirective, upperCaseDirective } from "./resolvers/directives";
+import { execute, subscribe } from "graphql";
 let schema = makeExecutableSchema({ typeDefs, resolvers });
 
 schema = loggerDirective(schema, "logger");
@@ -24,6 +26,17 @@ app.get("/", (_req, res) => {
 });
 const apolloServer = new ApolloServer({
   schema,
+  plugins: [
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            subscriptionServer.close();
+          },
+        };
+      },
+    },
+  ],
   formatError: (err) => {
     console.error("Error!!");
     console.error(err.message);
@@ -40,6 +53,22 @@ const apolloServer = new ApolloServer({
 const server = app.listen(PORT, () => {
   console.log(`Server listening on: http://localhost:${PORT}/graphql`);
 });
+
+const subscriptionServer = SubscriptionServer.create(
+  {
+    // This is the `schema` we just created.
+    schema,
+    // These are imported from `graphql`.
+    execute,
+    subscribe,
+  },
+  {
+    // This is the `httpServer` we created in a previous step.
+    server: server,
+    // This `server` is the instance returned from `new ApolloServer`.
+    path: apolloServer.graphqlPath,
+  }
+);
 mongoose
   .connect(process.env.MONGODB_URI!, {
     dbName: process.env.DB_NAME,

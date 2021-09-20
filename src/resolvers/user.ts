@@ -1,13 +1,14 @@
-import { pubsub } from "./index";
 import { NotFoundError } from "../helpers/errors";
+import { pubsub } from "../helpers/initRedis";
 import { getProjection } from "../helpers/utils";
 import ProfileModel from "../models/profile";
 import UserModel from "../models/user";
-
 export const UserQuery = {
   getUsers: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
-    pubsub.publish("MessageRecieved", { message: "hello brooooooooooooo" });
+    pubsub.publish("MessageRecieved", {
+      message: { message: "hello brooooooooooooo", roomId: "123abc" },
+    });
     const users = await UserModel.find({}, projection);
     return users;
   },
