@@ -4,6 +4,7 @@ import { Note, NoteQuery, NoteMutation } from "./note";
 import { Subscription } from "./subscription";
 import { PubSub } from "graphql-subscriptions";
 export const pubsub = new PubSub();
+
 const resolvers = {
   Query: {
     ...UserQuery,
