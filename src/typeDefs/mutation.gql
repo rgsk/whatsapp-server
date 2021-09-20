@@ -1,6 +1,6 @@
 type Mutation {
-  createUser(data: createUserInput): User!
-  createProfile(data: createProfileInput): Profile
+  createUser(data: createUserInput): User! @logger
+  createProfile(data: createProfileInput): Profile @logger
   updateProfile(_id: ID, userId: ID, data: updateProfileInput): Profile
   deleteProfile(_id: ID, userId: ID): Message
   createNote(data: createNoteInput): Note

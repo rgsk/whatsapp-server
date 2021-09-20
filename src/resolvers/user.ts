@@ -1,3 +1,4 @@
+import { pubsub } from "./index";
 import { NotFoundError } from "../helpers/errors";
 import { getProjection } from "../helpers/utils";
 import ProfileModel from "../models/profile";
@@ -6,6 +7,7 @@ import UserModel from "../models/user";
 export const UserQuery = {
   getUsers: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
+    pubsub.publish("MessageRecieved", { message: "hello brooooooooooooo" });
     const users = await UserModel.find({}, projection);
     return users;
   },

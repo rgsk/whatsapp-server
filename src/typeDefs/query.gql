@@ -1,7 +1,13 @@
+directive @logger(text: String) on FIELD_DEFINITION
+directive @upperCase on FIELD_DEFINITION
+
 type Query {
-  getUsers: [User]!
+  getUsers: [User]! @logger(text: "hello World")
   getUser(_id: ID): User!
   getProfile(_id: ID): Profile!
   getProfileForUser(userId: ID): Profile!
   getNotes: [Note]!
+}
+type Subscription {
+  message: Message
 }
