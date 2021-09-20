@@ -12,6 +12,7 @@ schema = loggerDirective(schema, "logger");
 schema = upperCaseDirective(schema, "upperCase");
 const PORT = process.env.PORT || 8000;
 redisClient.SET("name", "Rahul");
+
 const server = new ApolloServer({
   cors: { origin: "*" },
   schema,
