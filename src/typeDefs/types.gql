@@ -1,0 +1,26 @@
+type User {
+  _id: ID!
+  name: String!
+  email: String!
+  password: String!
+  test: Test!
+  profile: Profile
+}
+type Test {
+  text: String!
+}
+type Profile {
+  _id: ID!
+  status: String
+  profilePhotoUrl: String
+  userId: ID!
+  user: User
+}
+type Message {
+  message: String
+}
+type Note {
+  _id: ID!
+  uuid: String!
+  text: String!
+}

@@ -1,0 +1,7 @@
+type Query {
+  getUsers: [User]!
+  getUser(_id: ID): User!
+  getProfile(_id: ID): Profile!
+  getProfileForUser(userId: ID): Profile!
+  getNotes: [Note]!
+}

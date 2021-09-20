@@ -1,0 +1,30 @@
+{
+  "name": "gql_base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "initts": "tsc --init"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.4.0",
+    "@graphql-tools/merge": "^8.1.2",
+    "apollo-server": "^3.3.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/redis": "^2.8.32",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  }
+}

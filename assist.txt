@@ -1,0 +1,8 @@
+redis-server
+// local config
+PORT=8080
+MONGODB_URI=mongodb://localhost:27017
+DB_NAME=gqlbase
+REDIS_HOSTNAME=127.0.0.1
+REDIS_PORT=6379
+// remote config

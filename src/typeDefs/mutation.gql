@@ -1,0 +1,9 @@
+type Mutation {
+  createUser(data: createUserInput): User!
+  createProfile(data: createProfileInput): Profile
+  updateProfile(_id: ID, userId: ID, data: updateProfileInput): Profile
+  deleteProfile(_id: ID, userId: ID): Message
+  createNote(data: createNoteInput): Note
+  updateNote(uuid: String, text: String): Note
+  deleteNote(uuid: String): Message
+}
