@@ -1,6 +1,10 @@
 require("dotenv").config();
 import redisClient from "./helpers/initRedis";
-import { ApolloServer } from "apollo-server";
+
+import { ApolloServer } from "apollo-server-express";
+import express from "express";
+
+import cors from "cors";
 import mongoose from "mongoose";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
@@ -11,12 +15,15 @@ let schema = makeExecutableSchema({ typeDefs, resolvers });
 schema = loggerDirective(schema, "logger");
 schema = upperCaseDirective(schema, "upperCase");
 const PORT = process.env.PORT || 8000;
-redisClient.SET("name", "Rahul");
+redisClient.set("name", "Mehak");
 
-const server = new ApolloServer({
-  cors: { origin: "*" },
+const app = express();
+app.use(cors());
+app.get("/", (_req, res) => {
+  res.send("<h1>Connected visit please visit please /graphql</h1>");
+});
+const apolloServer = new ApolloServer({
   schema,
-
   formatError: (err) => {
     console.error("Error!!");
     console.error(err.message);
@@ -26,6 +33,13 @@ const server = new ApolloServer({
     return new Error("Internal Server Error");
   },
 });
+(async () => {
+  await apolloServer.start();
+  apolloServer.applyMiddleware({ app });
+})();
+const server = app.listen(PORT, () => {
+  console.log(`Server listening on: http://localhost:${PORT}/graphql`);
+});
 mongoose
   .connect(process.env.MONGODB_URI!, {
     dbName: process.env.DB_NAME,
@@ -34,6 +48,3 @@ mongoose
     console.log("MongoDB Connected");
   })
   .catch(console.error);
-server.listen(PORT).then(() => {
-  console.log(`server listening on http://localhost:${PORT}`);
-});
