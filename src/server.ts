@@ -11,7 +11,7 @@ let schema = makeExecutableSchema({ typeDefs, resolvers });
 schema = loggerDirective(schema, "logger");
 schema = upperCaseDirective(schema, "upperCase");
 const PORT = process.env.PORT || 8000;
-redisClient.SET("name", "Rahul");
+redisClient.set("name", "Mehak");
 
 const server = new ApolloServer({
   cors: { origin: "*" },

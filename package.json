@@ -19,15 +19,15 @@
     "dotenv": "^10.0.0",
     "graphql": "^15.5.3",
     "graphql-subscriptions": "^1.2.1",
+    "ioredis": "^4.27.9",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
-    "nodemon": "^2.0.12",
-    "redis": "^3.1.2"
+    "nodemon": "^2.0.12"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/ioredis": "^4.27.4",
     "@types/jsonwebtoken": "^8.5.5",
-    "@types/redis": "^2.8.32",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }
