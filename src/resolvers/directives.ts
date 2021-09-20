@@ -13,10 +13,9 @@ export const loggerDirective = (
         directiveName
       )?.[0];
       if (loggerDirective) {
-        console.log(fieldConfig);
         const defaultResolver = fieldConfig.resolve || defaultFieldResolver;
+        console.log(loggerDirective);
         fieldConfig.resolve = (...args: any) => {
-          console.log(fieldConfig);
           return defaultResolver.call(this, ...args);
         };
         return fieldConfig;
