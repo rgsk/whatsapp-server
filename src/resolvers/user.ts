@@ -14,7 +14,7 @@ export const UserQuery = {
   },
   getUser: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
-    console.log(projection);
+    // console.log(projection);
     const user = await UserModel.findById(args._id, projection);
     if (!user) {
       throw new NotFoundError("user with given id not found");

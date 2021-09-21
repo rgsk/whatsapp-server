@@ -12,20 +12,24 @@ import typeDefs from "./typeDefs";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loggerDirective, upperCaseDirective } from "./resolvers/directives";
 import { execute, subscribe } from "graphql";
-let schema = makeExecutableSchema({ typeDefs, resolvers });
 
+// add random redis key to validate redis
+redisClient.set("test", "testing..");
+
+// register schemas
+let schema = makeExecutableSchema({ typeDefs, resolvers });
 schema = loggerDirective(schema, "logger");
 schema = upperCaseDirective(schema, "upperCase");
-const PORT = process.env.PORT || 8000;
-redisClient.set("name", "Mehak");
 
-const app = express();
-app.use(cors());
-app.get("/", (_req, res) => {
-  res.send("<h1>Connected visit please visit please /graphql</h1>");
-});
+// initializing apolloServer
 const apolloServer = new ApolloServer({
   schema,
+
+  // this way req, res will be available in context
+  context: ({ req, res }) => ({
+    req,
+    res,
+  }),
   plugins: [
     {
       async serverWillStart() {
@@ -46,10 +50,17 @@ const apolloServer = new ApolloServer({
     return new Error("Internal Server Error");
   },
 });
+const app = express();
+app.use(cors());
+app.get("/", (_req, res) => {
+  res.send("<h1>Connected visit please visit please /graphql</h1>");
+});
+////
 (async () => {
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
 })();
+const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
   console.log(`Server listening on: http://localhost:${PORT}/graphql`);
 });
@@ -58,7 +69,7 @@ const subscriptionServer = SubscriptionServer.create(
   {
     // This is the `schema` we just created.
     schema,
-    // These are imported from `graphql`.
+    // These are imported from `graphql`
     execute,
     subscribe,
   },
@@ -69,6 +80,7 @@ const subscriptionServer = SubscriptionServer.create(
     path: apolloServer.graphqlPath,
   }
 );
+// initialize mongoose
 mongoose
   .connect(process.env.MONGODB_URI!, {
     dbName: process.env.DB_NAME,

@@ -14,7 +14,8 @@ export const loggerDirective = (
       )?.[0];
       if (loggerDirective) {
         const defaultResolver = fieldConfig.resolve || defaultFieldResolver;
-        console.log(loggerDirective);
+        // console.log(loggerDirective);
+        // console.log(loggerDirective.text)
         fieldConfig.resolve = (...args: any) => {
           return defaultResolver.call(this, ...args);
         };
@@ -39,7 +40,7 @@ export const upperCaseDirective = (
         const defaultResolver = fieldConfig.resolve || defaultFieldResolver;
         fieldConfig.resolve = async (...args: any) => {
           const answer = await defaultResolver.call(this, ...args);
-          console.log(answer);
+          // console.log(answer);
           return answer.toUpperCase();
         };
         return fieldConfig;

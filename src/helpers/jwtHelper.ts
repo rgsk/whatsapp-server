@@ -80,7 +80,7 @@ export const signRefreshToken = (userId: string) => {
       // we want to invalidate older refresh tokens
       // so we store this newly generated refresh token
       // in redis
-      redisClient.SET(
+      redisClient.set(
         userId,
         token!,
         "EX",
@@ -116,7 +116,7 @@ export const verifyRefreshToken = (refreshToken: string) => {
         // the last saved refresh token from redis db
         // if the refreshToken matches with token from redis
         // we validate the token
-        redisClient.GET(userId, (err, result) => {
+        redisClient.get(userId, (err, result) => {
           if (err) {
             console.log(err.message);
             return reject(

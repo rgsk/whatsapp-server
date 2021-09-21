@@ -4,6 +4,7 @@ import NoteModel from "../models/note";
 
 export const NoteQuery = {
   getNotes: async (parent: any, args: any, context: any, query: any) => {
+    // console.log(context);
     const notes = await NoteModel.find();
     pubsub.publish("MessageRecieved", {
       message: { message: "hello brooooooooooooo", roomId: "123abc" },

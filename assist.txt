@@ -1,16 +1,1 @@
-redis-server
-// local config
-PORT=8080
-MONGODB_URI=mongodb://localhost:27017
-DB_NAME=gqlbase
-REDIS_HOSTNAME=127.0.0.1
-REDIS_PORT=6379
-// remote config
-PORT=8080
-MONGODB_URI=mongodb+srv://rahul:5001000bnd@cluster0.ilphb.mongodb.net/gqlbase?retryWrites=true&w=majority
-DB_NAME=gqlbase
-ACCESS_TOKEN_SECRET=829cd807bdb928396a57be94d8720c80300fcb04cc7300149a9a1e1a9ac60a6b
-REFRESH_TOKEN_SECRET=1f29063a4b96a07d6a366d7c03078a563d43fa78121bd34ac5e0a09657cd4dc1
-REDIS_HOSTNAME=redis-16761.c92.us-east-1-3.ec2.cloud.redislabs.com
-REDIS_PORT=16761
-REDIS_PASSWORD=X5uT2EBZtFeMJNtKW1FGEnoCR4A0WABW
+redis-cli
