@@ -1,7 +1,6 @@
 input createUserInput {
   name: String!
-  email: String!
-  password: String!
+  phone: String!
 }
 input createProfileInput {
   status: String

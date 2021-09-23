@@ -1,9 +1,7 @@
 type User {
   _id: ID!
-  name: String! @upperCase
-  email: String!
-  password: String!
-  test: Test!
+  name: String!
+  phone: String!
   profile: Profile
 }
 type Test {
@@ -23,4 +21,9 @@ type Note {
   _id: ID!
   uuid: String!
   text: String!
+}
+type MessageReceived {
+  text: String
+  to: String
+  from: String
 }

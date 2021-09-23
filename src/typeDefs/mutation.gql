@@ -6,4 +6,5 @@ type Mutation {
   createNote(data: createNoteInput): Note
   updateNote(uuid: String, text: String): Note
   deleteNote(uuid: String): Message
+  createMessage(text: String, to: String, from: String): Message
 }

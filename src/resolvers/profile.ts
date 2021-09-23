@@ -31,7 +31,7 @@ export const ProfileQuery = {
 };
 export const ProfileMutation = {
   createProfile: async (parent: any, args: any, context: any, query: any) => {
-    // console.log(args.data);
+    // console.log(args.data)
     const profile = new ProfileModel(args.data);
     await profile.save();
     return profile;

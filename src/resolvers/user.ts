@@ -6,16 +6,14 @@ import UserModel from "../models/user";
 export const UserQuery = {
   getUsers: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
-    pubsub.publish("MessageRecieved", {
-      message: { message: "hello brooooooooooooo", roomId: "123abc" },
-    });
     const users = await UserModel.find({}, projection);
     return users;
   },
   getUser: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
     // console.log(projection);
-    const user = await UserModel.findById(args._id, projection);
+    const users = await UserModel.find({ phone: args.phone }, projection);
+    const user = users[0];
     if (!user) {
       throw new NotFoundError("user with given id not found");
     }
@@ -30,9 +28,6 @@ export const UserMutation = {
   },
 };
 export const User = {
-  test: (user: any) => {
-    return { text: "test string" };
-  },
   profile: async (user: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
     // console.log(projection);
@@ -41,3 +36,4 @@ export const User = {
     return profiles[0];
   },
 };
+//
