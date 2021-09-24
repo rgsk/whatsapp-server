@@ -7,7 +7,9 @@ type Query {
   getProfile(_id: ID): Profile!
   getProfileForUser(userId: ID): Profile!
   getNotes: [Note]!
+  getMessages: [Message]!
+  getMessagesForUser(phone: String): [Message]!
 }
 type Subscription {
-  message(to: String): MessageReceived
+  message(to: String): Message
 }

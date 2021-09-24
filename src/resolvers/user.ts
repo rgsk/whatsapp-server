@@ -1,5 +1,4 @@
 import { NotFoundError } from "../helpers/errors";
-import { pubsub } from "../helpers/initRedis";
 import { getProjection } from "../helpers/utils";
 import ProfileModel from "../models/profile";
 import UserModel from "../models/user";
@@ -22,9 +21,15 @@ export const UserQuery = {
 };
 export const UserMutation = {
   createUser: async (parent: any, args: any, context: any, query: any) => {
-    const user = new UserModel(args.data);
-    await user.save();
-    return user;
+    const projection = getProjection(query);
+    const users = await UserModel.find({ phone: args.data.phone }, projection);
+    const user = users[0];
+    if (user) {
+      return user;
+    }
+    const newUser = new UserModel(args.data);
+    await newUser.save();
+    return newUser;
   },
 };
 export const User = {
