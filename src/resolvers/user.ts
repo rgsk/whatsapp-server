@@ -1,21 +1,18 @@
 import { NotFoundError } from "../helpers/errors";
-import { pubsub } from "../helpers/initRedis";
 import { getProjection } from "../helpers/utils";
 import ProfileModel from "../models/profile";
 import UserModel from "../models/user";
 export const UserQuery = {
   getUsers: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
-    pubsub.publish("MessageRecieved", {
-      message: { message: "hello brooooooooooooo", roomId: "123abc" },
-    });
     const users = await UserModel.find({}, projection);
     return users;
   },
   getUser: async (parent: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
     // console.log(projection);
-    const user = await UserModel.findById(args._id, projection);
+    const users = await UserModel.find({ phone: args.phone }, projection);
+    const user = users[0];
     if (!user) {
       throw new NotFoundError("user with given id not found");
     }
@@ -24,15 +21,31 @@ export const UserQuery = {
 };
 export const UserMutation = {
   createUser: async (parent: any, args: any, context: any, query: any) => {
-    const user = new UserModel(args.data);
-    await user.save();
-    return user;
+    const projection = getProjection(query);
+    const users = await UserModel.find({ phone: args.data.phone }, projection);
+    const user = users[0];
+    if (user) {
+      return user;
+    }
+    const newUser = new UserModel(args.data);
+    await newUser.save();
+    return newUser;
+  },
+  updateUser: async (parent: any, args: any, context: any, query: any) => {
+    const projection = getProjection(query);
+    const user: any = await UserModel.findById(args._id, projection);
+    if (user) {
+      for (let field in args.data) {
+        user[field] = args.data[field];
+      }
+      await user.save();
+      return user;
+    } else {
+      throw new NotFoundError("user with given id not found");
+    }
   },
 };
 export const User = {
-  test: (user: any) => {
-    return { text: "test string" };
-  },
   profile: async (user: any, args: any, context: any, query: any) => {
     const projection = getProjection(query);
     // console.log(projection);
@@ -41,3 +54,4 @@ export const User = {
     return profiles[0];
   },
 };
+//

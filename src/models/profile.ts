@@ -3,6 +3,7 @@ const profileSchema = new Schema(
   {
     status: String,
     profilePhotoUrl: String,
+    about: String,
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",

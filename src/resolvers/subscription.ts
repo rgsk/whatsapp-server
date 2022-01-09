@@ -6,10 +6,8 @@ export const Subscription = {
     subscribe: withFilter(
       () => pubsub.asyncIterator("MessageRecieved"),
       (data: any, params: any) => {
-        // console.log({ data, params }, data.message.roomId === params.roomId);
-        return data.message.roomId === params.roomId;
+        return data.message.to === params.to;
       }
     ),
   },
 };
-//

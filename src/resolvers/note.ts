@@ -6,9 +6,9 @@ export const NoteQuery = {
   getNotes: async (parent: any, args: any, context: any, query: any) => {
     // console.log(context);
     const notes = await NoteModel.find();
-    pubsub.publish("MessageRecieved", {
-      message: { message: "hello brooooooooooooo", roomId: "123abc" },
-    });
+    // pubsub.publish("MessageRecieved", {
+    //   message: { message: "hello brooooooooooooo", roomId: "123abc" },
+    // });
     notes.sort((a: any, b: any) =>
       new Date(a.updatedAt) > new Date(b.updatedAt) ? -1 : 1
     );

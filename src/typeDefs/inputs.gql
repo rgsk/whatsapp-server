@@ -1,9 +1,13 @@
 input createUserInput {
   name: String!
-  email: String!
-  password: String!
+  phone: String!
 }
+input updateUserInput {
+  name: String!
+}
+
 input createProfileInput {
+  about: String
   status: String
   profilePhotoUrl: String
   userId: ID!
@@ -11,6 +15,7 @@ input createProfileInput {
 input updateProfileInput {
   status: String
   profilePhotoUrl: String
+  about: String
 }
 input createNoteInput {
   uuid: String

@@ -3,11 +3,13 @@ directive @upperCase on FIELD_DEFINITION
 
 type Query {
   getUsers: [User]! @logger(text: "Rahul")
-  getUser(_id: ID): User!
+  getUser(phone: String): User!
   getProfile(_id: ID): Profile!
   getProfileForUser(userId: ID): Profile!
   getNotes: [Note]!
+  getMessages: [Message]!
+  getMessagesForUser(phone: String): [Message]!
 }
 type Subscription {
-  message(roomId: String): Message
+  message(to: String): Message
 }
