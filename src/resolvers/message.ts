@@ -15,21 +15,15 @@ export const MessageQuery = {
     context: any,
     query: any
   ) => {
-    console.log(args.phone);
+    // console.log(args.phone);
     const projection = getProjection(query);
-    const sentMessages = await MessageModel.find(
-      {
-        from: args.phone,
-      },
+    const messages = await MessageModel.find(
+      { $or: [{ from: args.phone }, { to: args.phone }] },
+
       projection
     );
-    const receivedMessages = await MessageModel.find(
-      {
-        to: args.phone,
-      },
-      projection
-    );
-    return [...sentMessages, ...receivedMessages];
+
+    return messages;
   },
 };
 //
