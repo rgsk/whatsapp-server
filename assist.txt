@@ -1,1 +1,13 @@
 redis-cli
+// prune heroku config
+since we want dev dependencies installed too
+yarn start uses ts-node
+// also installing ts-node as dependency not works
+0
+
+For unknown reasons Heroku prunes ts-node as 
+dev dependency even if you listed it in dependencies instead of devDependencies.
+ What should you do is to instruct Heroku not to prune devDependencies with the command:
+// set
+ NPM_CONFIG_PRODUCTION=false 
+ YARN_PRODUCTION=false
