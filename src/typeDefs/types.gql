@@ -1,6 +1,6 @@
 type User {
   _id: ID!
-  name: String!
+  name: String! @upperCase
   phone: String!
   profile: Profile
 }
@@ -13,6 +13,7 @@ type Profile {
   profilePhotoUrl: String
   userId: ID!
   user: User
+  about: String
 }
 type InfoMessage {
   message: String

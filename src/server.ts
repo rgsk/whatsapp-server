@@ -81,6 +81,7 @@ const subscriptionServer = SubscriptionServer.create(
   }
 );
 // initialize mongoose
+
 mongoose
   .connect(process.env.MONGODB_URI!, {
     dbName: process.env.DB_NAME,

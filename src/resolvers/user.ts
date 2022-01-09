@@ -31,6 +31,19 @@ export const UserMutation = {
     await newUser.save();
     return newUser;
   },
+  updateUser: async (parent: any, args: any, context: any, query: any) => {
+    const projection = getProjection(query);
+    const user: any = await UserModel.findById(args._id, projection);
+    if (user) {
+      for (let field in args.data) {
+        user[field] = args.data[field];
+      }
+      await user.save();
+      return user;
+    } else {
+      throw new NotFoundError("user with given id not found");
+    }
+  },
 };
 export const User = {
   profile: async (user: any, args: any, context: any, query: any) => {
